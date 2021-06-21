@@ -42,6 +42,7 @@ class Blockchain{
         this.chain = [this.generateGenesisBlock()];
        // this.chain.push();
        this.difficulty = 4;
+       this.pendingTransaction = [];
     }
 
     generateGenesisBlock(){
@@ -52,11 +53,20 @@ class Blockchain{
         // Return Last element of chain
         return this.chain[lengthOfChain-1];
     }
-    addBlock(newBlock){
-        newBlock.previousHash = this.getLatestBlock().hash;
-        newBlock.mineBlock(this.difficulty);
-        this.chain.push(newBlock);
+
+    createTransaction(transaction){
+        this.pendingTransaction.push(transaction);
     }
+
+
+    minePendingTransaction(){
+        let block = new Block(Date.now(), this.pendingTransaction);
+        block.mineBlock(this.difficulty);
+        this.chain.push(block);
+        this.pendingTransaction = [];
+    }
+
+  
 
     isBlockchainValid(){
 
@@ -74,11 +84,9 @@ class Blockchain{
 
 const myCoin = new Blockchain();
 
-const block = new Block("2021-06-22", {amount: 5});
-myCoin.addBlock(block);
+myCoin.createTransaction(new Transaction("address1","address2",100));
 
-const block2 = new Block("2021-06-22", {amount: 5});
-myCoin.addBlock(block2);
+myCoin.createTransaction(new Transaction("address2","address1",10));
 
 
 console.log(myCoin); // return false;

@@ -31,6 +31,19 @@ class Blockchain{
         newBlock.hash = newBlock.calculateHash();
         this.chain.push(newBlock);
     }
+
+    isBlockchainValid(){
+
+        for(let i = 1; i< this.chain.length; i++){
+            const currentBlock = this.chain[i];
+            const previousBlock = this.chain[i-1];
+
+            if(currentBlock.hash !== currentBlock.calculateHash()) return false;
+            if(currentBlock.previousHash !== previousBlock.hash) return false;
+        }
+
+        return true;
+    }
 }
 
 const myCoin = new Blockchain();
@@ -39,7 +52,7 @@ const block = new Block("2021-06-22", {amount: 5});
 
 
 myCoin.addBlock(block);
-
+console.log(myCoin.isBlockchainValid());  // return true
 myCoin.chain[1].data = "Chain is being Hacked"
 
-console.log(myCoin);
+console.log(myCoin.isBlockchainValid()); // return false;

@@ -33,6 +33,7 @@ class Blockchain{
     constructor(){
         this.chain = [this.generateGenesisBlock()];
        // this.chain.push();
+       this.difficulty = 4;
     }
 
     generateGenesisBlock(){
@@ -45,7 +46,7 @@ class Blockchain{
     }
     addBlock(newBlock){
         newBlock.previousHash = this.getLatestBlock().hash;
-        newBlock.hash = newBlock.calculateHash();
+        newBlock.mineBlock(this.difficulty);
         this.chain.push(newBlock);
     }
 
@@ -64,12 +65,12 @@ class Blockchain{
 }
 
 const myCoin = new Blockchain();
+
 const block = new Block("2021-06-22", {amount: 5});
-
-
-
 myCoin.addBlock(block);
-console.log(myCoin.isBlockchainValid());  // return true
-myCoin.chain[1].data = "Chain is being Hacked"
 
-console.log(myCoin.isBlockchainValid()); // return false;
+const block2 = new Block("2021-06-22", {amount: 5});
+myCoin.addBlock(block2);
+
+
+console.log(myCoin); // return false;

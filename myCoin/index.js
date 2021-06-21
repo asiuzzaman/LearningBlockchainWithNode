@@ -11,6 +11,22 @@ class Block{
     }
 
 }
+
+class Blockchain{
+    constructor(){
+        this.chain = [];
+    }
+
+    addBlock(newBlock){
+        this.chain.push(newBlock);
+    }
+}
+
+const myCoin = new Blockchain();
 const block = new Block("2021-06-21", {amount: 5}, "ABCE");
 
-console.log(block);
+
+
+myCoin.addBlock(block);
+
+console.log(myCoin);

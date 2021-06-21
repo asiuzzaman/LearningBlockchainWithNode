@@ -88,5 +88,5 @@ myCoin.createTransaction(new Transaction("address1","address2",100));
 
 myCoin.createTransaction(new Transaction("address2","address1",10));
 
-
+myCoin.minePendingTransaction();
 console.log(myCoin); // return false;

@@ -40,4 +40,6 @@ const block = new Block("2021-06-22", {amount: 5});
 
 myCoin.addBlock(block);
 
+myCoin.chain[1].data = "Chain is being Hacked"
+
 console.log(myCoin);

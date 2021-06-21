@@ -80,13 +80,34 @@ class Blockchain{
 
         return true;
     }
+
+    getBalanceOfAddress(address){
+        let balance = 0;
+        for(const block of this.chain){
+            for(const trans of block.transaction){
+                if(trans.fromAddress === address){
+                    balance-=trans.amount;
+                }else if(trans.toAddress === address){
+                    balance+=trans.amount;
+                }
+            }
+        }
+        return balance;
+    }
 }
 
 const myCoin = new Blockchain();
 
 myCoin.createTransaction(new Transaction("address1","address2",100));
-
-myCoin.createTransaction(new Transaction("address2","address1",10));
-
+console.log(myCoin.getBalanceOfAddress("address1"));
+myCoin.createTransaction(new Transaction("address2","address1",50));
+console.log(myCoin.getBalanceOfAddress("address2"));
+myCoin.createTransaction(new Transaction("address2","bholahat",50));
 myCoin.minePendingTransaction();
-console.log(myCoin); // return false;
+
+let balanceOfAddress1 = myCoin.getBalanceOfAddress("address1");
+
+let balanceOfAddress2 = myCoin.getBalanceOfAddress("address2");
+let balanceOfBholahat = myCoin.getBalanceOfAddress("bholahat");
+
+console.log(balanceOfAddress1,balanceOfAddress2,balanceOfBholahat); // return false;

@@ -101,9 +101,18 @@ class Blockchain{
             throw new Error("Can't process transaction");
         }
         if(!transaction.isValid()) {
-            //throw new Error ("Invalid Transaction");
-            //console.log("Invalid transaction");
-            //return;
+            
+            // This througn statement doesn't work properly. 
+
+            // throw new Error ("Invalid Transaction");
+        
+        }
+        if(transaction.amount <= 0 ){
+            throw new Error("Invalid transaction amount ");
+        }
+
+        if(transaction.amount < this.getBalanceOfAddress(transaction.fromAddress)){
+            throw new Error("Sending amount is greater than he/she have");
         }
         this.pendingTransaction.push(transaction);
     }

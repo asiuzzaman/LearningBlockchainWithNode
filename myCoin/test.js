@@ -20,3 +20,7 @@ console.log(myCoin.getBalanceOfAddress(walletNumber));
 
 myCoin.minePendingTransaction(walletNumber);
 console.log(myCoin.getBalanceOfAddress(walletNumber));
+
+myCoin.chain[1].transaction[1] = "HackedBlockchain";
+
+console.log(myCoin.isBlockchainValid());

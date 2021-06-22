@@ -48,10 +48,11 @@ class Transaction{
     }
 
     calculateHash(){
-        return sha256(this.fromAddress + this.toAddress + this.amount);
+        return sha256(this.fromAddress + this.toAddress + this.amount).toString();
     }
 
     signTransaction(key){
+      //  console.log("The value in signature: "+key.getPublic("hex") + " From address:"+this.fromAddress);
         if(key.getPublic("hex") !== this.fromAddress) { // problem 
             throw new Error ( "You don't have access");
         }
@@ -100,7 +101,9 @@ class Blockchain{
             throw new Error("Can't process transaction");
         }
         if(!transaction.isValid()) {
-            throw new Error ("Invalid Transaction");
+            //throw new Error ("Invalid Transaction");
+            //console.log("Invalid transaction");
+            //return;
         }
         this.pendingTransaction.push(transaction);
     }
@@ -146,13 +149,8 @@ class Blockchain{
     }
 }
 
-const myCoin = new Blockchain();
-
-myCoin.addTransaction(new Transaction("address1","address2",100));
-myCoin.addTransaction(new Transaction("address2","address1",50));
-
-myCoin.minePendingTransaction("asiuzzaman");
-console.log(myCoin.getBalanceOfAddress("asiuzzaman"));
-
-myCoin.minePendingTransaction("asiuzzaman");
-console.log(myCoin.getBalanceOfAddress("asiuzzaman"));
+module.exports = {
+    Block,
+    Blockchain,
+    Transaction
+};

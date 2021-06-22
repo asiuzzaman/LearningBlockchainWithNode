@@ -94,7 +94,14 @@ class Blockchain{
         return this.chain[lengthOfChain-1];
     }
 
-    createTransaction(transaction){
+    addTransaction(transaction){
+
+        if(!transaction.fromAddress  || !transaction.toAddress) {
+            throw new Error("Can't process transaction");
+        }
+        if(!transaction.isValid()) {
+            throw new Error ("Invalid Transaction");
+        }
         this.pendingTransaction.push(transaction);
     }
 
@@ -141,8 +148,8 @@ class Blockchain{
 
 const myCoin = new Blockchain();
 
-myCoin.createTransaction(new Transaction("address1","address2",100));
-myCoin.createTransaction(new Transaction("address2","address1",50));
+myCoin.addTransaction(new Transaction("address1","address2",100));
+myCoin.addTransaction(new Transaction("address2","address1",50));
 
 myCoin.minePendingTransaction("asiuzzaman");
 console.log(myCoin.getBalanceOfAddress("asiuzzaman"));

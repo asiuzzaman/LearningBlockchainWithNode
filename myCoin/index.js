@@ -29,6 +29,15 @@ class Block{
              ).toString();
     }
 
+    hasTransactionValid(){
+
+        for(const tx of this.transaction){
+            if(!tx.isValid()) return false;
+        }
+
+        return true;
+    }
+
 }
 
 class Transaction{

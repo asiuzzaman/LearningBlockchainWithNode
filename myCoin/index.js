@@ -43,6 +43,7 @@ class Blockchain{
        // this.chain.push();
        this.difficulty = 4;
        this.pendingTransaction = [];
+       this.miningReward = 10;
     }
 
     generateGenesisBlock(){
@@ -59,11 +60,13 @@ class Blockchain{
     }
 
 
-    minePendingTransaction(){
+    minePendingTransaction(minerAddress){
         let block = new Block(Date.now(), this.pendingTransaction);
         block.mineBlock(this.difficulty);
         this.chain.push(block);
-        this.pendingTransaction = [];
+        this.pendingTransaction = [
+            new Transaction(null,minerAddress,this.miningReward)
+        ];
     }
 
   
@@ -99,15 +102,10 @@ class Blockchain{
 const myCoin = new Blockchain();
 
 myCoin.createTransaction(new Transaction("address1","address2",100));
-console.log(myCoin.getBalanceOfAddress("address1"));
 myCoin.createTransaction(new Transaction("address2","address1",50));
-console.log(myCoin.getBalanceOfAddress("address2"));
-myCoin.createTransaction(new Transaction("address2","bholahat",50));
-myCoin.minePendingTransaction();
 
-let balanceOfAddress1 = myCoin.getBalanceOfAddress("address1");
+myCoin.minePendingTransaction("asiuzzaman");
+console.log(myCoin.getBalanceOfAddress("asiuzzaman"));
 
-let balanceOfAddress2 = myCoin.getBalanceOfAddress("address2");
-let balanceOfBholahat = myCoin.getBalanceOfAddress("bholahat");
-
-console.log(balanceOfAddress1,balanceOfAddress2,balanceOfBholahat); // return false;
+myCoin.minePendingTransaction("asiuzzaman");
+console.log(myCoin.getBalanceOfAddress("asiuzzaman"));

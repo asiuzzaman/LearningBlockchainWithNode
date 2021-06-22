@@ -83,7 +83,7 @@ class Blockchain{
        // this.chain.push();
        this.difficulty = 4;
        this.pendingTransaction = [];
-       this.miningReward = 10;
+       this.miningReward = 25;
     }
 
     generateGenesisBlock(){
@@ -111,9 +111,9 @@ class Blockchain{
             throw new Error("Invalid transaction amount ");
         }
 
-        if(transaction.amount < this.getBalanceOfAddress(transaction.fromAddress)){
-            throw new Error("Sending amount is greater than he/she have");
-        }
+        // if(transaction.amount < this.getBalanceOfAddress(transaction.fromAddress)){
+        //     throw new Error("Sending amount is greater than he/she have");
+        // }
         this.pendingTransaction.push(transaction);
     }
 

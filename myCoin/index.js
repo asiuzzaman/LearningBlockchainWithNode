@@ -118,6 +118,7 @@ class Blockchain{
 
             if(currentBlock.hash !== currentBlock.calculateHash()) return false;
             if(currentBlock.previousHash !== previousBlock.hash) return false;
+            if(!currentBlock.hasTransactionValid()) return false;
         }
 
         return true;
